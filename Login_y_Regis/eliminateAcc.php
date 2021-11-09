@@ -1,9 +1,11 @@
+
 <html>
 <head>
-  <title>Registro</title>
+  <title>Eliminando Cuenta</title>
 </head>
 <body>
 
+  <link rel="stylesheet" type="text/css" href="">
   <style type="text/css">
 
     body {
@@ -38,7 +40,7 @@
       border-radius: 12px;
     }
 
-  </style>
+  </style> 
 
   <script type="text/javascript">
 
@@ -58,33 +60,37 @@
 
   <div id="box">
     
-    <form method="post" action="regis.php">
-      <div style="font-size: 20px;margin: 10px;color: black;">Registrarse</div>
+    <form method="post" action="eliminateAcc.php">
+      <div style="font-size: 20px;margin: 10px;color: black;">Eliminar cuenta</div>
 
-      <input class="text" type="text" name="username" required><br><br>
-      <input class="text" type="password" name="password" required><br><br>
+      <input class="text" type="text" name="username" onclick="return check();" placeholder="Nombre de Usuario" required>
+      <br><br>
+      <input class="text" type="password" name="password" onclick="return check();" placeholder="Contraseña" required>
+      <br><br>
 
-      <input id="button" type="submit" value="Aceptar" onclick="return check();"><br><br>
+      <input id="button" type="submit" value="Aceptar">
+      <br><br>
 
-      <a href="login.php">Ya tengo cuenta</a><br><br>
     </form>
   </div>
 </body>
 </html>
 
 <?php 
-  if($_SERVER['REQUEST_METHOD'] == "POST") {
+
     include("connection.php");
 
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+      if($_SERVER['REQUEST_METHOD'] == "POST") {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
 
-        
-    $query = "insert into USUARIO (username, contra) values ('$username','$password')";
-    mysqli_query($con, $query) or die("<p style=color:aqua;> *Usuario Existente </p>");
-    header("Location: login.php");
-    
+        $sql = "delete from USUARIO where username = '$username' and contra = '$password' limit 1";
 
-  }
+        $result = mysqli_query($con, $sql) or die("Algo esta mal con los datos");
+
+        if ($result) {
+          header("Location: http://localhost/Cbtis/ProyectSubABP/");
+        }
+      }
 
 ?>
