@@ -1,6 +1,8 @@
+<!-- Llevamos aproximadamente un 70 - 80 %, solamente nos faltaria actualizar unas correcciones de la base de datos y agregar las sesiones lo cual es relativamente rapido -->
+<?php include("connection.php"); session_start();?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <title>Bienvenido</title>
     <meta charset="UTF-8">
@@ -35,19 +37,16 @@
 </head>
 
 <body>
-
     <div class="row">
         <div id="top"><a href="top"></a> </div>
-        <div id="boardNav" class=" boardlist col-lg-12 text-center"> <!--  nav de boards -->
-            <span>
+        <div id="boardNav" class=" boardlist col-lg-12 text-center">
+            <!--<span>
     			[
-    			<a href="#">Pokemon </a> /
-    			<a href="#">Random </a> /
-    			<a href="#">Tecnologia </a> /
-    			<a href="#">Bimbo </a> /
-    			<a href="#">Videojuegos</a> 
+    			<a href="#">S</a> /
+    			<a href="#">R </a> /
+    			<a href="#">P </a>
     			]
-    		</span><br><br>
+    		</span><br><br>-->
         </div>
         <div class="col-lg-12 text-center"><!-- banner -->
             <img id="banner" src="img/ness_walking.gif">
@@ -61,37 +60,48 @@
 
     </div>
 
-    <form action="UpPub.php" method="post">
-        <!-- Form para subir algo al tablon -->
-        <div class="form">
-            <table class="form-post">
-                <form id="form">
-                    <tbody>
-                    <tr>
-                        <td class="thicc">Titulo</td>
-                        <td>
-                            <input class="textarea" id="titulo" type="text" size="25" maxlength="35" autocomplete="off" tabindex="1" name="titulo" required>
-                            <input class="buttons" type="submit" onclick="return check();">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="thicc">Comentario</td>
-                        <td>
-                            <textarea class="textarea" name="text" id="text" rows="6" cols="35" tabindex="3" required></textarea>
+    <?php if($_SESSION['session']){;?>
+            
+            <form action="UpPub.php" method="post">
+                <!-- Form to upload something to the page -->
+                <div class="form">
+                    <table class="form-post">
+                        <form id="form">
+                            <tbody>
+                            <tr>
+                                <td class="thicc">Titulo</td>
+                                <td>
+                                    <input class="textarea" id="titulo" type="text" size="25" maxlength="100" autocomplete="off" tabindex="1" name="titulo" required>
+                                    <input class="buttons" type="submit" onclick="return check();">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="thicc">Comentario</td>
+                                <td>
+                                    <textarea class="textarea" name="text" id="text" maxlength="600" rows="6" cols="35" tabindex="3" required></textarea>
 
-                            <input id="file" class="buttons" type="file" name="file" value="" accept="image/jpg, image/gif, image/png, image/jpeg">
-                            <input class="buttons" type="button" name="name" value="Remover Archivo" onclick="document.getElementById('file').value = ''">
-                        </td>
-                    </tr>
-                    </tbody>
-                </form>
-            </table>
-        </div>
-    </form>
+                                    <input id="file" class="buttons" type="file" name="file" value="" accept="image/jpg, image/gif, image/png, image/jpeg">
+                                    <input class="buttons" type="button" name="name" value="Remover Archivo" onclick="document.getElementById('file').value = ''">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </form>
+                    </table>
+                </div>
+            </form>
+    <?php }else{echo "<h4 align=center>Para hacer publicaciones debes de estar registrado</h4>";}?>
 
     <div class="topb">
 		<span>
-			<a href="#top">[Top]</a> / <a href="Login_y_Regis/login.php">[Iniciar Sesion]</a>
+            <a href="#top">[Top]</a> 
+            <?php if($_SESSION['session']){?><!-- Se pone cerrar sesion si hay una sesion abierta -->
+                / <a href="CloseSession.php">[Cerrar Sesion]</a>
+
+            <?php }else{ ?><!-- Se pone Login si no hay una sesion inciada -->
+                / <a href="Login_y_Regis/login.php">[Iniciar Sesion]</a>
+            <?php } ?>
+
+
 		</span>
     </div>
 
@@ -107,25 +117,22 @@
         </div>
     </div>
 
-<?php include("connection.php"); ?>
-    <?php 
-        $query = "select * from TEXTO";
-        $result = mysqli_query($con, $query);
-
-    ?>
-
     
-        
-                 
+    <?php 
+        $query = "select * from `PUBLICACIONES`";
+        $result = mysqli_query($con, $query);
+    ?>             
                     
     <?php
         echo "<div class='col-lg-12'>"; // start a table tag in the HTML
 
-                while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
+        while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
             echo "<div class='op'>";
-                echo "<p> <h4>" . $row['titulo'] . "</h4></p> <p>" . $row['texto'] . "</p>";  //$row['index'] the index here is a field name
+
+                echo "<p> <h4>" . $row['titulo'] . "</h4></p>"." <p>" . $row['texto'] . "</p>";  //$row['index'] the index here is a field name
+
             echo "</div>";   
-                }
+        }
 
         echo "</div>"; //Close the table in HTML
     ?>
@@ -133,9 +140,10 @@
     
     <div class="topb">
         <span>
-            <a href="#top">[Top]</a> <a href="reportes/rep.html">[Reports]</a>
+            <a href="#top">[Top]</a> <a href="reportes/rep.php">[Reports]</a> <a href="reportes/bug.php">[Bug]</a>
         </span>
     </div>
+
 </body>
 
 

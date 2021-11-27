@@ -26,7 +26,7 @@
     }
 
     #button{
-      background-color:#burlywood;
+      background-color: #burlywood;
       color: #darkblue;
       border-radius: 10px;
     }
@@ -79,9 +79,9 @@
 
 <?php 
 
-    include("connection.php");
+  include("connection.php");
 
-    if($_SERVER['REQUEST_METHOD'] == "POST") {
+  if($_SERVER['REQUEST_METHOD'] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
@@ -92,6 +92,8 @@
     $resultC = mysqli_query($con, $sqlContra);
 
     if ($resultU = $username && $resultC = $password) {
+      session_start();
+      $_SESSION['session'] = true;
       header("Location: http://localhost/Cbtis/ProyectSubABP/");
     } else {
       echo "Algo esta mal con los datos :/";

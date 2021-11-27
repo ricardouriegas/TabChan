@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Reportar</title>
+	<title>Bug</title>
 
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -33,12 +33,13 @@
 
 	</style>
     <div class="form" align="center">
-		<form action="rep.php" method="post" >
-    		<h4>Reporte</h4>
-    		<textarea class="textarea" type="text" rows="6" cols="35" maxlength="100" autocomplete="off" tabindex="1" name="razRep" placeholder="Razon del reporte" required></textarea>
+		<form action="bug.php" method="post" >
+    		<h4>Falla o Bug</h4>
+    		<input class="textarea" type="number" name="number" placeholder="Num. de Usuario" required><br><br>
+    	    <textarea class="textarea" name="text" id="text" rows="6" cols="35" tabindex="3" maxlength="600" placeholder="Razon o motivo por el cual se desea reportar al usuario" required></textarea>
 
-    	    <p><input class="buttons" name="btn" type="submit"></p><br>
-	    </form>
+    		<p><input class="buttons" name="btnBug" type="submit"></p>
+    	</form>
     </div>
 
     <?php
@@ -50,9 +51,10 @@
 
     	if(!$con = mysqli_connect($host,$user,$password,$db)) { die("Failed to connect!"); }
 
-    	if(isset($_POST['btn'])) {
-    	  $razonReporte = $_POST['razRep'];
-    	  $sql = "insert into REPORTES (razRep) values ('$razonReporte')";
+    	if(isset($_POST['btnBug'])) {
+    	  $bug = $_POST['text'];
+    	  $numUsuario = $_POST['number'];
+    	  $sql = "insert into BUG (bug) values ('$bug')";
     	  $result = mysqli_query($con, $sql);
 
     	  if ($result) {

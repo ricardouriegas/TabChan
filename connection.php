@@ -2,7 +2,7 @@
 	$host="localhost";
 	$user="root";
 	$password="";
-	$db="TABCHAN";
+	$db="TabChan";
 
 	if(!$con = mysqli_connect($host,$user,$password,$db))
 	{
