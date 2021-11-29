@@ -89,6 +89,10 @@
         $result = mysqli_query($con, $sql) or die("Algo esta mal con los datos");
 
         if ($result) {
+          session_start();
+          session_unset();
+          session_destroy();
+
           header("Location: http://localhost/Cbtis/ProyectSubABP/");
         }
       }

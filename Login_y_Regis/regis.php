@@ -43,6 +43,7 @@
   <script type="text/javascript">
 
     function check () {
+        //solo valida los inputs
         titulo = document.getElementById('username').value;
         text = document.getElementById('password').value;
 
@@ -59,10 +60,13 @@
   <div id="box">
     
     <form method="post" action="regis.php">
-      <div style="font-size: 20px;margin: 10px;color: black;">Registrarse</div>
+      <div align=center style="font-size: 20px;margin: 10px;color: black;">Registrarse</div>
+      <div align="center">
+        <small>Tu username no podra ser cambiado a futuro a menos que haya una actualizacion dedicada para eso</small>
+      </div>
 
-      <input class="text" type="text" name="username" required><br><br>
-      <input class="text" type="password" name="password" required><br><br>
+      <input class="text" type="text" name="username" placeholder="Username" required><br><br>
+      <input class="text" type="password" name="password" placeholder="Contraseña" required><br><br>
 
       <input id="button" type="submit" value="Aceptar" onclick="return check();"><br><br>
 

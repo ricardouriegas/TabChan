@@ -75,7 +75,6 @@
     </form>
   </div>
 </body>
-</html>
 
 <?php 
 
@@ -85,37 +84,19 @@
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $sqlUser = "select username from USUARIO where username = $username and contra = $password limit 1";
-    $sqlContra = "select contra from USUARIO where username = $username and contra = $password limit 1";
+    $sql = "select * from USUARIO where username = '$username' and contra = '$password' limit 1";
 
-    $resultU = mysqli_query($con, $sqlUser);
-    $resultC = mysqli_query($con, $sqlContra);
+    $result = mysqli_query($con, $sql) or die("Algo esta mal con los datos");
+    $row = mysqli_fetch_array($result);
 
-    if ($resultU = $username && $resultC = $password) {
+    if ($row['username'] == $username && $row['contra'] == $password) {
       session_start();
-      $_SESSION['session'] = true;
+      $_SESSION['session'] = $username;
       header("Location: http://localhost/Cbtis/ProyectSubABP/");
     } else {
-      echo "Algo esta mal con los datos :/";
+      echo "Algo esta mal con el usuario y/o contraseña";
     }
-
-    // if(mysqli_num_rows($result)===1){
-    //   $row =mysqli_fetch_assoc($result);
-    //   if($row['username']== $username && $row['contra'] == $password){
-    //     echo "Sesion Iniciada";
-    //     $_SESSION['username'] = $row['username'];
-    //     $_SESSION['id'] = $row['id'];
-    //     header("Location: index.php");
-    //       exit();
-    //   }
-    //   else{
-    //       echo("Incorrect username or password");
-    //       exit();
-    //     }
-    // }
-    // else{
-    //     exit();
-    // }
   }
 
 ?>
+</html>

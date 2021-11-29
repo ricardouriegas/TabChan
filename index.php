@@ -66,7 +66,7 @@
                 <!-- Form to upload something to the page -->
                 <div class="form">
                     <table class="form-post">
-                        <form id="form">
+                       <form id="form">
                             <tbody>
                             <tr>
                                 <td class="thicc">Titulo</td>
@@ -95,7 +95,7 @@
 		<span>
             <a href="#top">[Top]</a> 
             <?php if($_SESSION['session']){?><!-- Se pone cerrar sesion si hay una sesion abierta -->
-                / <a href="CloseSession.php">[Cerrar Sesion]</a>
+                / <a href="Login_y_Regis/CloseSession.php">[Cerrar Sesion]</a> / <a href="Login_y_Regis/modify.php">[Modificaciones]</a>
 
             <?php }else{ ?><!-- Se pone Login si no hay una sesion inciada -->
                 / <a href="Login_y_Regis/login.php">[Iniciar Sesion]</a>
@@ -129,7 +129,10 @@
         while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
             echo "<div class='op'>";
 
-                echo "<p> <h4>" . $row['titulo'] . "</h4></p>"." <p>" . $row['texto'] . "</p>";  //$row['index'] the index here is a field name
+                echo "<p> usuario: ". $row['idUsu'] ." </p>" . "<p> <h4>" . $row['titulo'] . "</h4></p>"; 
+
+                // print($row['imagen']);
+                echo " <p>" . $row['texto'] . "</p>"; 
 
             echo "</div>";   
         }
@@ -140,7 +143,7 @@
     
     <div class="topb">
         <span>
-            <a href="#top">[Top]</a> <a href="reportes/rep.php">[Reports]</a> <a href="reportes/bug.php">[Bug]</a>
+            <a href="#top">[Top]</a> <a href="reportes/rep.php">[Reportes]</a> <a href="reportes/bug.php">[Bug]</a>
         </span>
     </div>
 

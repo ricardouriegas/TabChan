@@ -32,10 +32,16 @@
 		}
 
 	</style>
+
+	<?php session_start(); 
+		if ($_SESSION['session']) {
+	?>
+
     <div class="form" align="center">
 		<form action="rep.php" method="post" >
     		<h4>Reporte</h4>
-    		<textarea class="textarea" type="text" rows="6" cols="35" maxlength="100" autocomplete="off" tabindex="1" name="razRep" placeholder="Razon del reporte" required></textarea>
+    		<input class="textarea" type="number" name="number" placeholder="Num. de Usuario" required><br><br>
+    		<textarea class="textarea" type="text" rows="6" cols="35" maxlength="100" autocomplete="off" tabindex="1" name="razRep" placeholder="Razon o motivo por el cual se desea reportar" required></textarea>
 
     	    <p><input class="buttons" name="btn" type="submit"></p><br>
 	    </form>
@@ -51,18 +57,26 @@
     	if(!$con = mysqli_connect($host,$user,$password,$db)) { die("Failed to connect!"); }
 
     	if(isset($_POST['btn'])) {
-    	  $razonReporte = $_POST['razRep'];
-    	  $sql = "insert into REPORTES (razRep) values ('$razonReporte')";
-    	  $result = mysqli_query($con, $sql);
+    		$numUsuario = $_POST['number'];
+    		$razonReporte = $_POST['razRep'];
+    		$sql = "insert into REPORTES (razRep) values ('$razonReporte')";
+    		$result = mysqli_query($con, $sql);
 
-    	  if ($result) {
-    	    header("Location: http://localhost/Cbtis/ProyectSubABP/");
-    	  } else {
+    		if ($result) {
+    	    	header("Location: http://localhost/Cbtis/ProyectSubABP/");
+    		} else {
     	  	echo "Algo esta mal :/";
-    	  }
+    		}
 
     	}
     ?>
 
 </body>
 </html>
+
+<?php  
+	}else{
+		echo "<h1 align=center>No puedes reportar a alguien si no tienes una cuenta</h1>";
+	}
+
+?>

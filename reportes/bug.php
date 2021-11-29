@@ -35,8 +35,7 @@
     <div class="form" align="center">
 		<form action="bug.php" method="post" >
     		<h4>Falla o Bug</h4>
-    		<input class="textarea" type="number" name="number" placeholder="Num. de Usuario" required><br><br>
-    	    <textarea class="textarea" name="text" id="text" rows="6" cols="35" tabindex="3" maxlength="600" placeholder="Razon o motivo por el cual se desea reportar al usuario" required></textarea>
+    	    <textarea class="textarea" name="text" id="text" rows="6" cols="35" tabindex="3" maxlength="600" placeholder="Explica aqui la falla o bug encontrado" required></textarea>
 
     		<p><input class="buttons" name="btnBug" type="submit"></p>
     	</form>
@@ -53,7 +52,6 @@
 
     	if(isset($_POST['btnBug'])) {
     	  $bug = $_POST['text'];
-    	  $numUsuario = $_POST['number'];
     	  $sql = "insert into BUG (bug) values ('$bug')";
     	  $result = mysqli_query($con, $sql);
 

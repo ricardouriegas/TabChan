@@ -1,25 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<?php 
-		//conection
-		include("connection.php");
-		$titulo = $_POST['titulo'];
-		$text = $_POST['text'];
-		$file = $_POST['file'];
+<?php 
+	if($_SERVER['REQUEST_METHOD'] == "POST") {
+	include("connection.php");
+	session_start();
 
-		//if theres no image then the dog is put it on it
-		if (isset($file)) {
-			$file = "img/dog:0.jpg";
-		}
-		
-		if($_SERVER['REQUEST_METHOD'] == "POST") {
-			if ($_SESSION['user']= true) {
-				$query = "insert into PUBLICACIONES (titulo, texto) values ('$titulo','$text')";
-				mysqli_query($con, $query);
-			}
-		}
-	?>
+
+	$a = $_SESSION["session"];
+
+	$codeSQL = "select * from USUARIO where username = '$a' limit 1";
+	$result = mysqli_query($con, $codeSQL);
+	$row = mysqli_fetch_array($result);
+	$idUsu = $row['idUsu'];
+
+	//conection
+	$titulo = $_POST['titulo'];
+	$text = $_POST['text'];
+
+	//if theres no image then the dog is put it on it
+	if (!isset($_POST['file'])) {
+		$file = "img/dog:0.jpg";
+	}else{
+		$file = $_POST['file'];
+	}
+		if ($_SESSION['session']) {
+	
+			$query = "insert into PUBLICACIONES (titulo, texto, imagen, idUsu) values ('$titulo','$text', '$file', '$idUsu')";
+			mysqli_query($con, $query) or die("Algo esta mal");
+	} 
+?>
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -71,8 +81,9 @@
 	    <div class="col-lg-12 ">
                 <div class="op"> 
 
-                    <h4><?php echo $titulo; ?></h4>
-                    <img class="images" src="<?php echo $file; ?>" onclick="expand(this);">
+                	<p><?php echo "usuario: " . $idUsu;?></p>
+                    <h4><?php echo $titulo . "<br>";?></h4>
+                    <?php echo $file; ?>
                     <p><?php echo $text; ?></p>
 
                 </div>
@@ -86,3 +97,8 @@
 
 </body>
 </html>
+<?php  
+} else {
+	echo "Que haces aqui pa?? 🤨";
+}
+?>
