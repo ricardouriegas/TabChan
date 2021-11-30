@@ -62,7 +62,7 @@
 
     <?php if($_SESSION['session']){;?>
             
-            <form action="UpPub.php" method="post">
+            <form action="UpPub.php" method="post" enctype="multipart/form-data">
                 <!-- Form to upload something to the page -->
                 <div class="form">
                     <table class="form-post">
@@ -80,7 +80,8 @@
                                 <td>
                                     <textarea class="textarea" name="text" id="text" maxlength="600" rows="6" cols="35" tabindex="3" required></textarea>
 
-                                    <input id="file" class="buttons" type="file" name="file" value="" accept="image/jpg, image/gif, image/png, image/jpeg">
+                                    <input type="hidden" name="MAX_FILE_SIZE" value="10240000">
+                                    <input class="buttons" type="file" name="archivo" value="" accept="image/jpg, image/gif, image/png, image/jpeg">
                                     <input class="buttons" type="button" name="name" value="Remover Archivo" onclick="document.getElementById('file').value = ''">
                                 </td>
                             </tr>
@@ -130,6 +131,8 @@
             echo "<div class='op'>";
 
                 echo "<p> usuario: ". $row['idUsu'] ." </p>" . "<p> <h4>" . $row['titulo'] . "</h4></p>"; 
+
+                echo "<img class='images' onclick='expand(this);' src='" . $row['imagen'] . "'>";
 
                 // print($row['imagen']);
                 echo " <p>" . $row['texto'] . "</p>"; 

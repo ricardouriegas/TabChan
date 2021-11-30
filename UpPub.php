@@ -17,17 +17,29 @@
 	//conection
 	$titulo = $_POST['titulo'];
 	$text = $_POST['text'];
+	
+	//files
 
 	//if theres no image then the dog is put it on it
-	if (!isset($_POST['file'])) {
+	if (isset($_POST['archivo'])) {
 		$file = "img/dog:0.jpg";
 	}else{
-		$file = $_POST['file'];
+		//info de la imagen
+		$directorio = "img/";
+		$file = $directorio . $_FILES['archivo']['name'];
+		// $a = explode('.', $file);
+
+		// $Newfile = $a[0] . $file . date("h:i:sa") . date("Y-m-d") . $idUsu . $a[1];
+
+		//subimos la imagen
+		move_uploaded_file($_FILES['archivo']['tmp_name'], $file);
+
 	}
-		if ($_SESSION['session']) {
-	
-			$query = "insert into PUBLICACIONES (titulo, texto, imagen, idUsu) values ('$titulo','$text', '$file', '$idUsu')";
-			mysqli_query($con, $query) or die("Algo esta mal");
+
+
+	if ($_SESSION['session']) {
+		$query = "insert into PUBLICACIONES (titulo, texto, imagen, idUsu) values ('$titulo','$text', '$file', '$idUsu')";
+		mysqli_query($con, $query) or die("Algo esta mal");
 	} 
 ?>
 
@@ -83,7 +95,9 @@
 
                 	<p><?php echo "usuario: " . $idUsu;?></p>
                     <h4><?php echo $titulo . "<br>";?></h4>
-                    <?php echo $file; ?>
+
+                    <?php echo "<img class='images' onclick='expand(this);' src='" . $file . "'>"; ?>
+
                     <p><?php echo $text; ?></p>
 
                 </div>
