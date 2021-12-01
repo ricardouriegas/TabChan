@@ -18,27 +18,18 @@
 	$titulo = $_POST['titulo'];
 	$text = $_POST['text'];
 	
-	//files
+	//info de la imagen
+	$directorio = "img/";
+	$file = $directorio . $_FILES['archivo']['name'];
+	$a = explode('.', $file);
 
-	//if theres no image then the dog is put it on it
-	if (isset($_POST['archivo'])) {
-		$file = "img/dog:0.jpg";
-	}else{
-		//info de la imagen
-		$directorio = "img/";
-		$file = $directorio . $_FILES['archivo']['name'];
-		// $a = explode('.', $file);
-
-		// $Newfile = $a[0] . $file . date("h:i:sa") . date("Y-m-d") . $idUsu . $a[1];
-
-		//subimos la imagen
-		move_uploaded_file($_FILES['archivo']['tmp_name'], $file);
-
-	}
+	$Newfile = $a[0] . date("h_i_sa") . date("Y_m_d_") . $idUsu . "." . $a[count($a)-1];
+	//subimos la imagen
+	move_uploaded_file($_FILES['archivo']['tmp_name'], $Newfile);
 
 
 	if ($_SESSION['session']) {
-		$query = "insert into PUBLICACIONES (titulo, texto, imagen, idUsu) values ('$titulo','$text', '$file', '$idUsu')";
+		$query = "insert into PUBLICACIONES (titulo, texto, imagen, idUsu) values ('$titulo','$text', '$Newfile', '$idUsu')";
 		mysqli_query($con, $query) or die("Algo esta mal");
 	} 
 ?>
@@ -96,7 +87,7 @@
                 	<p><?php echo "usuario: " . $idUsu;?></p>
                     <h4><?php echo $titulo . "<br>";?></h4>
 
-                    <?php echo "<img class='images' onclick='expand(this);' src='" . $file . "'>"; ?>
+                    <?php echo "<img class='images' onclick='expand(this);' src='" . $Newfile . "'>"; ?>
 
                     <p><?php echo $text; ?></p>
 

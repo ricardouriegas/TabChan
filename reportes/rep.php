@@ -59,7 +59,7 @@
     	if(isset($_POST['btn'])) {
     		$numUsuario = $_POST['number'];
     		$razonReporte = $_POST['razRep'];
-    		$sql = "insert into REPORTES (razRep) values ('$razonReporte')";
+    		$sql = "insert into REPORTES (razRep, idUsu) values ('$razonReporte', '$numUsuario')";
     		$result = mysqli_query($con, $sql);
 
     		if ($result) {

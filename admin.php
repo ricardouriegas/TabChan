@@ -30,7 +30,7 @@
         while($rowR = mysqli_fetch_array($resultREP)){   //Creates a loop to loop through results
             echo "<div class='op'>";
 
-                echo "<p> Reporte: " . $rowR['idRep'] . "</p>"; 
+                echo "<p> Reporte: " . $rowR['idRep'] . " / Usuario: " . $rowR['idUsu'] ."</p>"; 
 
                 // print($row['imagen']);
                 echo " <p>" . $rowR['razRep'] . "</p>"; 

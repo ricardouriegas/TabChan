@@ -68,9 +68,13 @@
     		//nueva
     		$NPass = $_POST['Newpassword'];
 
-    		$query = "update USUARIO set contra = '$NPass' where username = '$username' and contra = '$password'";
-			mysqli_query($con, $query) or die("<p style=color:aqua;> *Algo esta mal con la nueva contraseña 🧐 </p>");
-			header("Location: http://localhost/Cbtis/ProyectSubABP/");
+    		if ($password == $NPass) {
+    			echo "*Es exactamente la misma contraseña 🤨";
+    		} else {
+	    		$query = "update USUARIO set contra = '$NPass' where username = '$username' AND contra = '$password' limit 1";
+				$result = mysqli_query($con, $query) or die("Algo esta mal 🧐");
+				header("Location: http://localhost/Cbtis/ProyectSubABP/");
+			}
     	}
     ?>
 
